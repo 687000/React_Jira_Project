@@ -1,21 +1,25 @@
 import { useEffect, useState } from "react";
-
 // !value will return true if value is 0
-export const isFalsy = (value) => (value === 0 ? false : !value);
-// in a function, changing the object passed in to the function is bad.
+export const isFalsy = (value: any) => (value === 0 ? false : !value);
+// in a function, changing th e object passed in to the function is bad.
 // js pass by reference, by that the original object might be changes.
-export const cleanObject = (object) => {
+export const cleanObject = (object: object) => {
   // assign a new objec the same value
   const result = { ...object };
-  Object.keys(result).forEach((key) => {
+  Object.keys(result).forEach((key: string) => {
+    // 0
+    // @ts-ignore
     const value = result[key];
     if (isFalsy(value)) {
+      // 0
+      // @ts-ignore
       delete result[key];
     }
   });
   return result;
 };
-export const useMount = (callback) => {
+//type: function with no param and return nothing
+export const useMount = (callback: () => void) => {
   useEffect(() => {
     callback();
   }, []);
@@ -32,7 +36,8 @@ export const useMount = (callback) => {
 //   }
 // }
 
-export const useDebounce = (value, delay) => {
+//delay?:number type:number or get nothing
+export const useDebounce = (value: any, delay?: number) => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     const timeout = setTimeout(function () {
