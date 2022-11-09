@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 // !value will return true if value is 0
-export const isFalsy = (value: any) => (value === 0 ? false : !value);
+export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
 // in a function, changing th e object passed in to the function is bad.
 // js pass by reference, by that the original object might be changes.
 export const cleanObject = (object: object) => {
@@ -37,7 +37,7 @@ export const useMount = (callback: () => void) => {
 // }
 
 //delay?:number type:number or get nothing
-export const useDebounce = (value: any, delay?: number) => {
+export const useDebounce = <V>(value: V, delay?: number): V => {
   const [debouncedValue, setDebouncedValue] = useState(value);
   useEffect(() => {
     const timeout = setTimeout(function () {
