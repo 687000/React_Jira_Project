@@ -1,19 +1,8 @@
 import { Settings } from "http2";
 import React, { FormEvent } from "react";
-const apiUrl = process.env.REACT_APP_API_URL;
+import { login, logout } from "auth-provider";
+
 export const LoginScreen = () => {
-  const login = (param: { username: string; password: string }) => {
-    fetch(`${apiUrl}/login`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(param),
-    }).then(async (response: Response) => {
-      if (response.ok) {
-      }
-    });
-  };
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
@@ -23,16 +12,19 @@ export const LoginScreen = () => {
     login({ username, password });
   };
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label htmlFor="username">User Name</label>
-        <input type="text" id={"username"} />
-      </div>
-      <div>
-        <label htmlFor="password">Password</label>
-        <input type="password" id={"password"} />
-      </div>
-      <button type={"submit"}>Login</button>
-    </form>
+    <>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <label htmlFor="username">User Name</label>
+          <input type="text" id={"username"} />
+        </div>
+        <div>
+          <label htmlFor="password">Password</label>
+          <input type="password" id={"password"} />
+        </div>
+        <button type={"submit"}>Login</button>
+      </form>
+      <button onClick={logout}>Logout</button>
+    </>
   );
 };
