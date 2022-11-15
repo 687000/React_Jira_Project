@@ -1,8 +1,9 @@
 import { Settings } from "http2";
 import React, { FormEvent } from "react";
-import { login, logout } from "auth-provider";
+import { useAuth } from "context/auth-context";
 
 export const LoginScreen = () => {
+  const { login, register, logout, user } = useAuth();
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
@@ -14,6 +15,7 @@ export const LoginScreen = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        {user ? <div>Successfully login. User name: {user?.name}</div> : ""}
         <div>
           <label htmlFor="username">User Name</label>
           <input type="text" id={"username"} />
