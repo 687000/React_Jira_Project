@@ -3,7 +3,7 @@ import React, { FormEvent } from "react";
 import { useAuth } from "context/auth-context";
 
 export const LoginScreen = () => {
-  const { login, register, logout, user } = useAuth();
+  const { login, user } = useAuth();
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const username = (event.currentTarget.elements[0] as HTMLInputElement)
@@ -15,7 +15,6 @@ export const LoginScreen = () => {
   return (
     <>
       <form onSubmit={handleSubmit}>
-        {user ? <div>Successfully login. User name: {user?.name}</div> : ""}
         <div>
           <label htmlFor="username">User Name</label>
           <input type="text" id={"username"} />
@@ -26,7 +25,6 @@ export const LoginScreen = () => {
         </div>
         <button type={"submit"}>Login</button>
       </form>
-      <button onClick={logout}>Logout</button>
     </>
   );
 };
