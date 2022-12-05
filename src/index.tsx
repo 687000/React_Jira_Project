@@ -4,6 +4,8 @@ import "index.css";
 import App from "App";
 import reportWebVitals from "reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
+import { ConfigProvider } from "antd";
+import "antd/dist/reset.css";
 import { AppProviders } from "context";
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -11,9 +13,19 @@ const root = ReactDOM.createRoot(
 loadDevTools(() => {
   root.render(
     <React.StrictMode>
-      <AppProviders>
-        <App />
-      </AppProviders>
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: "#c9b3c9",
+            colorBorder: "#8a7b8a",
+            fontSize: 16,
+          },
+        }}
+      >
+        <AppProviders>
+          <App />
+        </AppProviders>
+      </ConfigProvider>
     </React.StrictMode>
   );
 });
