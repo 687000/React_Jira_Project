@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 // !value will return true if value is 0
 export const isFalsy = (value: unknown) => (value === 0 ? false : !value);
+export const isVoid = (value: unknown) =>
+  value === undefined || value === null || value === "";
 // in a function, changing th e object passed in to the function is bad.
 // js pass by reference, by that the original object might be changes.
-export const cleanObject = (object: object) => {
+export const cleanObject = (object: { [key: string]: unknown }) => {
   // assign a new objec the same value
   const result = { ...object };
   Object.keys(result).forEach((key: string) => {
-    // 0
-    // @ts-ignore
     const value = result[key];
-    if (isFalsy(value)) {
-      // 0
-      // @ts-ignore
+    if (isVoid(value)) {
       delete result[key];
     }
   });
