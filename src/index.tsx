@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "index.css";
 import App from "App";
 import reportWebVitals from "reportWebVitals";
 import { loadDevTools } from "jira-dev-tool";
@@ -16,8 +15,7 @@ loadDevTools(() => {
       <ConfigProvider
         theme={{
           token: {
-            colorPrimary: "#c9b3c9",
-            colorBorder: "#8a7b8a",
+            //colorPrimary: "",
             fontSize: 16,
           },
         }}
