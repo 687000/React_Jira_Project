@@ -1,5 +1,7 @@
+/** @jsxImportSource @emotion/react */
+import { css } from "@emotion/react";
 import React from "react";
-import { Input, Select } from "antd";
+import { Input, Select, Form } from "antd";
 export interface User {
   id: string;
   name: string;
@@ -18,33 +20,38 @@ interface SearchPanelProps {
 }
 export const SearchPanel = ({ param, setParam, users }: SearchPanelProps) => {
   return (
-    <form action="">
-      <Input
-        type="text"
-        value={param.name}
-        onChange={(e) =>
-          setParam({
-            ...param,
-            name: e.target.value,
-          })
-        }
-      />
-      <Select
-        value={param.personId}
-        onChange={(value) =>
-          setParam({
-            ...param,
-            personId: value,
-          })
-        }
-      >
-        <Select.Option value={""}>Responser</Select.Option>
-        {users.map((user) => (
-          <Select.Option key={user.id} value={user.id}>
-            {user.name}
-          </Select.Option>
-        ))}
-      </Select>
-    </form>
+    <Form css={{ marginBottom: "2rem", ">*": "" }} layout={"inline"}>
+      <Form.Item>
+        <Input
+          placeholder="Project Name"
+          type="text"
+          value={param.name}
+          onChange={(e) =>
+            setParam({
+              ...param,
+              name: e.target.value,
+            })
+          }
+        />
+      </Form.Item>
+      <Form.Item>
+        <Select
+          value={param.personId}
+          onChange={(value) =>
+            setParam({
+              ...param,
+              personId: value,
+            })
+          }
+        >
+          <Select.Option value={""}>Responser</Select.Option>
+          {users.map((user) => (
+            <Select.Option key={user.id} value={user.id}>
+              {user.name}
+            </Select.Option>
+          ))}
+        </Select>
+      </Form.Item>
+    </Form>
   );
 };
