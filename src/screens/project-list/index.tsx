@@ -8,6 +8,7 @@ import styled from "@emotion/styled";
 import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/users";
+import { TranslateErrMsg } from "utils/err-msg-translate";
 export const ProjectListScreen = () => {
   const [param, setParam] = useState({
     name: "",
@@ -21,7 +22,9 @@ export const ProjectListScreen = () => {
       <h1>Project List</h1>
       <SearchPanel param={param} setParam={setParam} users={users || []} />
       {error ? (
-        <Typography.Text type={"danger"}>{error?.message}</Typography.Text>
+        <Typography.Text type={"danger"}>
+          {TranslateErrMsg(error?.message)}
+        </Typography.Text>
       ) : null}
       <List loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
