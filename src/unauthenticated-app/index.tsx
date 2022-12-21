@@ -7,12 +7,14 @@ import logo from "assets/logo.svg";
 import right from "assets/right.svg";
 import left from "assets/left.svg";
 import { TranslateErrMsg } from "utils/err-msg-translate";
+import { Helmet } from "react-helmet";
+import { useDocumentTitle } from "utils";
 export const UnauthenticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<Error | null>(null);
+  useDocumentTitle("Please Login or Register to Continue", false);
   return (
     <Container>
-      <Header></Header>
       <Background />
       <ShadowCard>
         <Title>{isRegister ? "Please register" : "Please login"}</Title>
