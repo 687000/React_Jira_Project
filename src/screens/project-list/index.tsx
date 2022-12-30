@@ -9,12 +9,9 @@ import { Typography } from "antd";
 import { useProjects } from "utils/project";
 import { useUsers } from "utils/users";
 import { TranslateErrMsg } from "utils/err-msg-translate";
-import { Helmet } from "react-helmet";
+import { useUrlQueryParam } from "utils/url";
 export const ProjectListScreen = () => {
-  const [param, setParam] = useState({
-    name: "",
-    personId: "",
-  });
+  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
   const debouncedParam = useDebounce(param, 300);
   const { isLoading, error, data: list } = useProjects(debouncedParam);
   const { data: users } = useUsers();
@@ -22,7 +19,7 @@ export const ProjectListScreen = () => {
   return (
     <Container>
       <h1>Project List</h1>
-      <SearchPanel param={param} setParam={setParam} users={users || []} />
+      <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
         <Typography.Text type={"danger"}>
           {TranslateErrMsg(error?.message)}
@@ -32,6 +29,7 @@ export const ProjectListScreen = () => {
     </Container>
   );
 };
+ProjectListScreen.whyDidYouRender = false;
 const Container = styled.div`
   padding: 3.2rem;
 `;
