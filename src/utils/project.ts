@@ -9,6 +9,5 @@ export const useProjects = (param?: Partial<Project>) => {
   useEffect(() => {
     run(client("projects", { data: cleanObject(param || {}) }));
   }, [param]);
-  console.log(result);
   return result;
 };
