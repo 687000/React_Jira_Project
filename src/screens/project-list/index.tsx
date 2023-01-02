@@ -10,12 +10,12 @@ import { useProjects } from "utils/project";
 import { useUsers } from "utils/users";
 import { TranslateErrMsg } from "utils/err-msg-translate";
 import { useUrlQueryParam } from "utils/url";
+import { UseProjectsSearchParams } from "./util";
 export const ProjectListScreen = () => {
-  const [param, setParam] = useUrlQueryParam(["name", "personId"]);
-  const debouncedParam = useDebounce(param, 300);
-  const { isLoading, error, data: list } = useProjects(debouncedParam);
-  const { data: users } = useUsers();
   useDocumentTitle("Project List", false);
+  const [param, setParam] = UseProjectsSearchParams();
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
+  const { data: users } = useUsers();
   return (
     <Container>
       <h1>Project List</h1>

@@ -4,9 +4,9 @@ import { Table, TableProps } from "antd";
 import { Link } from "react-router-dom";
 const dayjs = require("dayjs");
 export interface Project {
-  id: string;
+  id: number;
   name: string;
-  personId: string;
+  personId: number;
   pin: boolean;
   organization: string;
   created: number;
