@@ -2,6 +2,10 @@ import React from "react";
 import { User } from "screens/project-list/search-panel";
 import { Table, TableProps } from "antd";
 import { Link } from "react-router-dom";
+import { Pin } from "components/pin";
+import { render } from "@testing-library/react";
+import { useEditProject } from "utils/project";
+import { ProjectListScreen } from ".";
 const dayjs = require("dayjs");
 export interface Project {
   id: number;
@@ -16,10 +20,23 @@ interface ListProps extends TableProps<Project> {
   users: User[];
 }
 export const List = ({ users, ...props }: ListProps) => {
+  const { mutate } = useEditProject();
+  const pinProject = (id: number, pin: boolean) => mutate({ id: id, pin });
   return (
     <Table
       pagination={false}
       columns={[
+        {
+          title: <Pin checked={true} disabled={true} />,
+          render(value, project) {
+            return (
+              <Pin
+                checked={project.pin}
+                onCheckedChange={(pin) => pinProject(project.id, pin)}
+              />
+            );
+          },
+        },
         {
           title: "Project Name",
           sorter: (a, b) => a.name.localeCompare(b.name),
