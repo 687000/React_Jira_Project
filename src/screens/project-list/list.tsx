@@ -18,10 +18,12 @@ export interface Project {
 //no need to inlude list, since tableprops will also handle datasource
 interface ListProps extends TableProps<Project> {
   users: User[];
+  refresh?: () => void;
 }
 export const List = ({ users, ...props }: ListProps) => {
   const { mutate } = useEditProject();
-  const pinProject = (id: number, pin: boolean) => mutate({ id: id, pin });
+  const pinProject = (id: number) => (pin: boolean) =>
+    mutate({ id: id, pin }).then(props.refresh);
   return (
     <Table
       pagination={false}
@@ -32,7 +34,7 @@ export const List = ({ users, ...props }: ListProps) => {
             return (
               <Pin
                 checked={project.pin}
-                onCheckedChange={(pin) => pinProject(project.id, pin)}
+                onCheckedChange={pinProject(project.id)}
               />
             );
           },

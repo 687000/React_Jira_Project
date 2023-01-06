@@ -21,6 +21,9 @@ export const useAsync = <D>(
     ...defaultInitialState,
     ...initialState,
   });
+  // avoid lazy initialization
+  // only lazy initalization the first function
+  const [retry, setRetry] = useState(() => () => {});
   const setData = (data: D) =>
     setState({
       data,
@@ -34,10 +37,18 @@ export const useAsync = <D>(
       data: null,
     });
   // run trigger async request
-  const run = (promise: Promise<D>) => {
+  const run = (
+    promise: Promise<D>,
+    runConfig?: { retry: () => Promise<D> }
+  ) => {
     if (!promise || !promise.then) {
       throw new Error("Please input Promise data type");
     }
+    setRetry(() => () => {
+      if (runConfig?.retry) {
+        run(runConfig?.retry(), runConfig);
+      }
+    });
     setState({ ...state, stat: "loading" });
     return promise
       .then((data) => {
@@ -61,6 +72,9 @@ export const useAsync = <D>(
     run,
     setData,
     setError,
+    // retry, run the run again
+    // refresh the state
+    retry,
     ...state,
   };
 };
