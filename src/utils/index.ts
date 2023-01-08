@@ -76,3 +76,17 @@ export const useDocumentTitle = (
   }, [keepOnUnmount, oldTitle]);
 };
 export const resetRoute = () => (window.location.href = window.location.origin);
+
+// return component mounting state
+// if it's not yet mounted or already unmounted, return false
+// else return true
+export const useMountedRef = () => {
+  const mountedRef = useRef(false);
+  useEffect(() => {
+    mountedRef.current = true;
+    return () => {
+      mountedRef.current = false;
+    };
+  });
+  return mountedRef;
+};
