@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { useMountedRef } from "utils";
 interface State<D> {
   error: Error | null;
@@ -26,48 +26,54 @@ export const useAsync = <D>(
   // avoid lazy initialization
   // only lazy initalization the first function
   const [retry, setRetry] = useState(() => () => {});
-  const setData = (data: D) =>
-    setState({
-      data,
-      stat: "success",
-      error: null,
-    });
-  const setError = (error: Error) =>
-    setState({
-      error,
-      stat: "error",
-      data: null,
-    });
+  const setData = useCallback(
+    (data: D) =>
+      setState({
+        data,
+        stat: "success",
+        error: null,
+      }),
+    []
+  );
+  const setError = useCallback(
+    (error: Error) =>
+      setState({
+        error,
+        stat: "error",
+        data: null,
+      }),
+    []
+  );
   // run trigger async request
-  const run = (
-    promise: Promise<D>,
-    runConfig?: { retry: () => Promise<D> }
-  ) => {
-    if (!promise || !promise.then) {
-      throw new Error("Please input Promise data type");
-    }
-    setRetry(() => () => {
-      if (runConfig?.retry) {
-        run(runConfig?.retry(), runConfig);
+  const run = useCallback(
+    (promise: Promise<D>, runConfig?: { retry: () => Promise<D> }) => {
+      if (!promise || !promise.then) {
+        throw new Error("Please input Promise data type");
       }
-    });
-    setState({ ...state, stat: "loading" });
-    return promise
-      .then((data) => {
-        if (mountedRef.current) {
-          setData(data);
+      setRetry(() => () => {
+        if (runConfig?.retry) {
+          run(runConfig?.retry(), runConfig);
         }
-        return data;
-      })
-      .catch((error) => {
-        // catch will handle the exception. If do not throw error intentional, outer code will not get the abnormal.
-        setError(error);
-        if (config.throwOnError) {
-          return Promise.reject(error);
-        }
-        return error;
       });
-  };
+      setState((prevState) => ({ ...prevState, stat: "loading" }));
+      return promise
+        .then((data) => {
+          if (mountedRef.current) {
+            setData(data);
+          }
+          return data;
+        })
+        .catch((error) => {
+          // catch will handle the exception. If do not throw error intentional, outer code will not get the abnormal.
+          setError(error);
+          if (config.throwOnError) {
+            return Promise.reject(error);
+          }
+          return error;
+        });
+    },
+    [config.throwOnError, mountedRef, setData, setError]
+  );
   return {
     isIdle: state.stat === "idle",
     isLoading: state.stat === "loading",
