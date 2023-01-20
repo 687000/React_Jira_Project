@@ -13,18 +13,11 @@ import { ProjectModal } from "screens/project-list/project-modal";
 import { ProjectPopover } from "components/project-popover";
 
 export const AuthenticatedApp = () => {
-  const [projectModalOpen, setProjectModalOpen] = useState(false);
   return (
     <Container>
       <PageHeader
-        projectButton={
-          <ButtonNoPadding
-            type={"link"}
-            onClick={() => setProjectModalOpen(true)}
-          >
-            Create Project
-          </ButtonNoPadding>
-        }
+      // projectButton={
+      // }
       />
       <Main>
         <Router>
@@ -33,14 +26,7 @@ export const AuthenticatedApp = () => {
               path={"/projects"}
               element={
                 <ProjectListScreen
-                  projectButton={
-                    <ButtonNoPadding
-                      type={"link"}
-                      onClick={() => setProjectModalOpen(true)}
-                    >
-                      Create Project
-                    </ButtonNoPadding>
-                  }
+                  projectButton={<ButtonNoPadding></ButtonNoPadding>}
                 />
               }
             />
@@ -52,14 +38,11 @@ export const AuthenticatedApp = () => {
           </Routes>
         </Router>
       </Main>
-      <ProjectModal
-        projectModalOpen={projectModalOpen}
-        onClose={() => setProjectModalOpen(false)}
-      />
+      <ProjectModal />
     </Container>
   );
 };
-const PageHeader = (props: { projectButton: JSX.Element }) => {
+const PageHeader = () => {
   return (
     <Header between={true}>
       <HeaderLeft gap={true}>
@@ -69,7 +52,7 @@ const PageHeader = (props: { projectButton: JSX.Element }) => {
             color={"rgb(38,132,255)"}
           ></SoftwareLogo>
         </ButtonNoPadding>
-        <ProjectPopover {...props} />
+        <ProjectPopover />
         <span>Users</span>
       </HeaderLeft>
       <HeaderRight>
