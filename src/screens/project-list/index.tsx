@@ -10,10 +10,12 @@ import { useProjects } from "utils/project";
 import { useUsers } from "utils/users";
 import { TranslateErrMsg } from "utils/err-msg-translate";
 import { useUrlQueryParam } from "utils/url";
-import { UseProjectsSearchParams } from "./util";
-export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
+import { useProjectModal, useProjectsSearchParams } from "./util";
+import { ButtonNoPadding } from "components/lib";
+export const ProjectListScreen = () => {
+  const { open } = useProjectModal();
   useDocumentTitle("Project List", false);
-  const [param, setParam] = UseProjectsSearchParams();
+  const [param, setParam] = useProjectsSearchParams();
   const {
     isLoading,
     error,
@@ -25,7 +27,9 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
     <Container>
       <Row justify={"space-between"} align={"bottom"}>
         <h1>Project List</h1>
-        {props.projectButton}
+        <ButtonNoPadding onClick={open} type={"link"}>
+          Create Project
+        </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       {error ? (
@@ -34,7 +38,6 @@ export const ProjectListScreen = (props: { projectButton: JSX.Element }) => {
         </Typography.Text>
       ) : null}
       <List
-        projectButton={props.projectButton}
         refresh={retry}
         loading={isLoading}
         dataSource={list || []}
