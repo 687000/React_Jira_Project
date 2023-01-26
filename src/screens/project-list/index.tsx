@@ -11,17 +11,12 @@ import { useUsers } from "utils/users";
 import { TranslateErrMsg } from "utils/err-msg-translate";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectModal, useProjectsSearchParams } from "./util";
-import { ButtonNoPadding } from "components/lib";
+import { ButtonNoPadding, ErrorBox } from "components/lib";
 export const ProjectListScreen = () => {
   const { open } = useProjectModal();
   useDocumentTitle("Project List", false);
   const [param, setParam] = useProjectsSearchParams();
-  const {
-    isLoading,
-    error,
-    data: list,
-    retry,
-  } = useProjects(useDebounce(param, 200));
+  const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
   const { data: users } = useUsers();
   return (
     <Container>
@@ -32,17 +27,8 @@ export const ProjectListScreen = () => {
         </ButtonNoPadding>
       </Row>
       <SearchPanel users={users || []} param={param} setParam={setParam} />
-      {error ? (
-        <Typography.Text type={"danger"}>
-          {TranslateErrMsg(error?.message)}
-        </Typography.Text>
-      ) : null}
-      <List
-        refresh={retry}
-        loading={isLoading}
-        dataSource={list || []}
-        users={users || []}
-      />
+      <ErrorBox error={error} />
+      <List loading={isLoading} dataSource={list || []} users={users || []} />
     </Container>
   );
 };

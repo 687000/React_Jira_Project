@@ -9,6 +9,7 @@ import left from "assets/left.svg";
 import { TranslateErrMsg } from "utils/err-msg-translate";
 import { Helmet } from "react-helmet";
 import { useDocumentTitle } from "utils";
+import { ErrorBox } from "components/lib";
 export const UnauthenticatedApp = () => {
   const [isRegister, setIsRegister] = useState(false);
   const [error, setError] = useState<Error | null>(null);
@@ -18,11 +19,7 @@ export const UnauthenticatedApp = () => {
       <Background />
       <ShadowCard>
         <Title>{isRegister ? "Please register" : "Please login"}</Title>
-        {error ? (
-          <Typography.Text type={"danger"}>
-            {TranslateErrMsg(error.message)}
-          </Typography.Text>
-        ) : null}
+        <ErrorBox error={error} />
         {isRegister ? (
           <RegisterScreen onError={setError} />
         ) : (

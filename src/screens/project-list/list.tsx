@@ -7,6 +7,7 @@ import { render } from "@testing-library/react";
 import { useEditProject } from "utils/project";
 import { ProjectListScreen } from ".";
 import { ButtonNoPadding } from "components/lib";
+import { useProjectModal } from "./util";
 const dayjs = require("dayjs");
 export interface Project {
   id: number;
@@ -19,12 +20,12 @@ export interface Project {
 //no need to inlude list, since tableprops will also handle datasource
 interface ListProps extends TableProps<Project> {
   users: User[];
-  refresh?: () => void;
 }
 export const List = ({ users, ...props }: ListProps) => {
   const { mutate } = useEditProject();
-  const pinProject = (id: number) => (pin: boolean) =>
-    mutate({ id: id, pin }).then(props.refresh);
+  const { startEdit } = useProjectModal();
+  const pinProject = (id: number) => (pin: boolean) => mutate({ id: id, pin });
+  const editProject = (id: number) => () => startEdit(id);
   return (
     <Table
       pagination={false}
@@ -80,7 +81,10 @@ export const List = ({ users, ...props }: ListProps) => {
               <Dropdown
                 overlay={
                   <Menu>
-                    <Menu.Item key={"edit"}></Menu.Item>
+                    <Menu.Item key={"edit"} onClick={editProject(project.id)}>
+                      Edit
+                    </Menu.Item>
+                    <Menu.Item key={"delete"}>Delete</Menu.Item>
                   </Menu>
                 }
               >
