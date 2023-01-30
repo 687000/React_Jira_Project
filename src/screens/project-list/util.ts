@@ -39,7 +39,7 @@ export const useProjectModal = () => {
     setEditingProjectId({ editingProjectId: id });
   return {
     //return as string boolean, check wheter create window opened
-    projectModalOpen: projectCreate === "true" || Boolean(editingProject),
+    projectModalOpen: projectCreate === "true" || Boolean(editingProjectId),
     open,
     close,
     startEdit,
