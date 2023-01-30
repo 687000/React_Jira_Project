@@ -2,16 +2,9 @@
 import { css } from "@emotion/react";
 import React from "react";
 import { Input, Select, Form } from "antd";
-import { Project } from "./list";
+import { Project } from "types/project";
 import { UserSelect } from "components/user-select";
-export interface User {
-  id: number;
-  name: string;
-  email: string;
-  title: string;
-  orgnaization: string;
-  token: string;
-}
+import { User } from "../../types/user";
 interface SearchPanelProps {
   users: User[];
   //make sure same type as name/personId in Project

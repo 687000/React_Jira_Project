@@ -15,7 +15,12 @@ export const ProjectScreen = () => {
         <Route path={"/taskgroup"} element={<TaskGroupScreen />} />
         <Route
           path="*"
-          element={<Navigate to={window.location.pathname + "/dashboard"} />}
+          element={
+            <Navigate
+              to={window.location.pathname + "/dashboard"}
+              replace={true}
+            />
+          }
         />
       </Routes>
     </div>

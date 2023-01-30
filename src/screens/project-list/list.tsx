@@ -1,5 +1,5 @@
 import React from "react";
-import { User } from "screens/project-list/search-panel";
+import { User } from "types/user";
 import { Dropdown, Menu, Modal, Table, TableProps } from "antd";
 import { Link } from "react-router-dom";
 import { Pin } from "components/pin";
@@ -8,15 +8,8 @@ import { useDeleteProject, useEditProject } from "utils/project";
 import { ProjectListScreen } from ".";
 import { ButtonNoPadding } from "components/lib";
 import { useProjectModal, useProjectsQueryKey } from "./util";
+import { Project } from "types/project";
 const dayjs = require("dayjs");
-export interface Project {
-  id: number;
-  name: string;
-  personId: number;
-  pin: boolean;
-  organization: string;
-  created: number;
-}
 //no need to inlude list, since tableprops will also handle datasource
 interface ListProps extends TableProps<Project> {
   users: User[];
