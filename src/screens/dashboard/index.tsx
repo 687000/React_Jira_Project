@@ -8,6 +8,7 @@ import {
   useProjectInUrl,
 } from "./util";
 import styled from "@emotion/styled";
+import { SearchPanel } from "./search-panel";
 export const DashboardScreen = () => {
   useDocumentTitle("Dashboard Lists");
   const { data: currentProject } = useProjectInUrl();
@@ -15,6 +16,7 @@ export const DashboardScreen = () => {
   return (
     <div>
       <h1>{currentProject?.name} Dashboards</h1>
+      <SearchPanel />
       <ColumnsContainer>
         {dashboards?.map((dashboard) => (
           <DashboardColumn dashboard={dashboard} key={dashboard.id} />

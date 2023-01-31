@@ -2,7 +2,7 @@ import React from "react";
 import { Dashboard } from "types/dashboard";
 import { useTasks } from "utils/task";
 import { useTaskTypes } from "utils/task-type";
-import { useTaskSearchParams } from "./util";
+import { useTasksSearchParams } from "./util";
 import taskIcon from "assets/task.svg";
 import bugIcon from "assets/bug.svg";
 import styled from "@emotion/styled";
@@ -16,7 +16,7 @@ const TaskTypeIcon = ({ id }: { id: number }) => {
   return <img src={name === "task" ? taskIcon : bugIcon} />;
 };
 export const DashboardColumn = ({ dashboard }: { dashboard: Dashboard }) => {
-  const { data: allTasks } = useTasks(useTaskSearchParams());
+  const { data: allTasks } = useTasks(useTasksSearchParams());
   const tasks = allTasks?.filter((task) => task.kanbanId === dashboard.id);
   return (
     <Container>
