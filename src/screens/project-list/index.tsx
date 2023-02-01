@@ -11,7 +11,7 @@ import { useUsers } from "utils/users";
 import { TranslateErrMsg } from "utils/err-msg-translate";
 import { useUrlQueryParam } from "utils/url";
 import { useProjectModal, useProjectsSearchParams } from "./util";
-import { ButtonNoPadding, ErrorBox } from "components/lib";
+import { ButtonNoPadding, ErrorBox, ScreenContainer } from "components/lib";
 export const ProjectListScreen = () => {
   const { open } = useProjectModal();
   useDocumentTitle("Project List", false);
@@ -19,7 +19,7 @@ export const ProjectListScreen = () => {
   const { isLoading, error, data: list } = useProjects(useDebounce(param, 200));
   const { data: users } = useUsers();
   return (
-    <Container>
+    <ScreenContainer>
       <Row justify={"space-between"} align={"bottom"}>
         <h1>Project List</h1>
         <ButtonNoPadding onClick={open} type={"link"}>
@@ -29,10 +29,7 @@ export const ProjectListScreen = () => {
       <SearchPanel users={users || []} param={param} setParam={setParam} />
       <ErrorBox error={error} />
       <List loading={isLoading} dataSource={list || []} users={users || []} />
-    </Container>
+    </ScreenContainer>
   );
 };
 ProjectListScreen.whyDidYouRender = false;
-const Container = styled.div`
-  padding: 3.2rem;
-`;

@@ -9,12 +9,13 @@ import {
 } from "./util";
 import styled from "@emotion/styled";
 import { SearchPanel } from "./search-panel";
+import { ScreenContainer } from "components/lib";
 export const DashboardScreen = () => {
   useDocumentTitle("Dashboard Lists");
   const { data: currentProject } = useProjectInUrl();
   const { data: dashboards } = useDashboards(useDashboardSearchParams());
   return (
-    <div>
+    <ScreenContainer>
       <h1>{currentProject?.name} Dashboards</h1>
       <SearchPanel />
       <ColumnsContainer>
@@ -22,12 +23,12 @@ export const DashboardScreen = () => {
           <DashboardColumn dashboard={dashboard} key={dashboard.id} />
         ))}
       </ColumnsContainer>
-    </div>
+    </ScreenContainer>
   );
 };
 
 const ColumnsContainer = styled.div`
   display: flex;
-  overflow: hidden;
-  margin-right: 2rem;
+  overflow-x: scroll;
+  flex: 1;
 `;

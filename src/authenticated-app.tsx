@@ -77,6 +77,8 @@ const User = () => {
 //grid-template-rows: layout for rows
 //grid-template-areas: describe the layout elements
 const Container = styled.div`
+  display: grid;
+  grid-template-rows: 6rem 1fr;
   height: 100vh;
 `;
 //grid-area: name the child element of grid
@@ -85,11 +87,9 @@ const Header = styled(Row)`
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
   z-index: 1;
 `;
-const HeaderLeft = styled(Row)`
-  display: flex;
-  align-items: center;
-`;
+const HeaderLeft = styled(Row)``;
 const HeaderRight = styled.div``;
 const Main = styled.main`
-  grid-area: main;
+  display: flex;
+  overflow: hidden;
 `;
