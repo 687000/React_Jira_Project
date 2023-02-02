@@ -13,6 +13,7 @@ import { SearchPanel } from "./search-panel";
 import { ScreenContainer } from "components/lib";
 import { useTasks } from "utils/task";
 import { Spin } from "antd";
+import { CreateDashboard } from "./create-dashboard";
 export const DashboardScreen = () => {
   useDocumentTitle("Dashboard Lists");
   const { data: currentProject } = useProjectInUrl();
@@ -32,13 +33,14 @@ export const DashboardScreen = () => {
           {dashboards?.map((dashboard) => (
             <DashboardColumn dashboard={dashboard} key={dashboard.id} />
           ))}
+          <CreateDashboard />
         </ColumnsContainer>
       )}
     </ScreenContainer>
   );
 };
 
-const ColumnsContainer = styled.div`
+export const ColumnsContainer = styled.div`
   display: flex;
   overflow-x: scroll;
   flex: 1;
