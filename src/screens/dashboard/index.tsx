@@ -14,6 +14,7 @@ import { ScreenContainer } from "components/lib";
 import { useTasks } from "utils/task";
 import { Spin } from "antd";
 import { CreateDashboard } from "./create-dashboard";
+import { TaskModal } from "./task-modal";
 export const DashboardScreen = () => {
   useDocumentTitle("Dashboard Lists");
   const { data: currentProject } = useProjectInUrl();
@@ -36,6 +37,7 @@ export const DashboardScreen = () => {
           <CreateDashboard />
         </ColumnsContainer>
       )}
+      <TaskModal />
     </ScreenContainer>
   );
 };
