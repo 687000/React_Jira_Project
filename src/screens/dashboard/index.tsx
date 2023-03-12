@@ -25,7 +25,7 @@ export const DashboardScreen = () => {
   const isLoading = dashboardIsLoading || taskIsLoading;
   return (
     <ScreenContainer>
-      <h1>{currentProject?.name} Dashboards</h1>
+      <h1>{currentProject?.name} Dashboard</h1>
       <SearchPanel />
       {isLoading ? (
         <Spin size={"large"} />
