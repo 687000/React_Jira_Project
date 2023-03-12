@@ -12,6 +12,7 @@ import { useState } from "react";
 import { ProjectModal } from "screens/project-list/project-modal";
 import { ProjectPopover } from "components/project-popover";
 import { useProjectModal } from "screens/project-list/util";
+import { UserPopover } from "components/user-popover";
 
 export const AuthenticatedApp = () => {
   return (
@@ -44,7 +45,7 @@ const PageHeader = () => {
           ></SoftwareLogo>
         </ButtonNoPadding>
         <ProjectPopover />
-        <span>Users</span>
+        <UserPopover />
       </HeaderLeft>
       <HeaderRight>
         <User />

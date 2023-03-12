@@ -18,9 +18,9 @@ export const ProjectScreen = () => {
           <Menu.Item key={"dashboard"}>
             <Link to={"dashboard"}>Dashboard</Link>
           </Menu.Item>
-          <Menu.Item key={"taskgroup"}>
-            <Link to={"taskgroup"}>Task Group</Link>
-          </Menu.Item>
+          {/* <Menu.Item key={"taskgroup"}>
+          <Link to={"taskgroup"}>Task Group</Link>
+        </Menu.Item> */}
         </Menu>
       </Aside>
       <Main>
